@@ -63,7 +63,7 @@ def run_optimizer(temp):
     logger = ioh.logger.Analyzer(root="/datanaco/vermettendl/SBOX/", folder_name=f"{algname}_F{fid}_{dim}D_{type_.name}", algorithm_name=f"{algname}_{type_.name}", )
 
     for iid in list(range(1,6)) + list(range(101,111)):
-        func = ioh.get_problem(fid, dimension=dim, instance=iid, problem_type=type_)
+        func = ioh.get_problem(fid, dimension=dim, instance=iid, problem_class=type_) #in ioh < 0.3.9, problem_class -> problem_type
         # func.enforce_bounds(np.inf)
         func.attach_logger(logger)
         try:
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     algnames = ['CMAES_sat', 'CMAES_sat_center', 'CMAES', 'CMAES_center']
     iids = list(range(1,6)) + list(range(101,111))
     dims = [5,20, 40]
-    tpyes = [ioh.ProblemType.SBOX, ioh.ProblemType.BBOB]
+    tpyes = [ioh.ProblemClass.SBOX, ioh.ProblemClass.BBOB]#in ioh < 0.3.9, problemClass -> problemType
     
     args = product(algnames, fids, dims, tpyes)
 
