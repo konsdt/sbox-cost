@@ -60,7 +60,7 @@ def run_optimizer(temp):
     algorithm = Algorithm_Evaluator(algname)
 
 
-    logger = ioh.logger.Analyzer(root="/datanaco/vermettendl/SBOX/", folder_name=f"{algname}_F{fid}_{dim}D_{type_.name}", algorithm_name=f"{algname}_{type_.name}", )
+    logger = ioh.logger.Analyzer(root="/Users/kd/scratch/projects/sbox", folder_name=f"{algname}_F{fid}_{dim}D_{type_.name}", algorithm_name=f"{algname}_{type_.name}", )
 
     for iid in list(range(1,6)) + list(range(101,111)):
         func = ioh.get_problem(fid, dimension=dim, instance=iid, problem_class=type_) #in ioh < 0.3.9, problem_class -> problem_type
