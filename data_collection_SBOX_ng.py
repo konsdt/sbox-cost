@@ -28,7 +28,7 @@ def runParallelFunction(runFunction, arguments):
     
 
     arguments = list(arguments)
-    p = Pool(min(100, len(arguments)))
+    p = Pool(min(10, len(arguments)))
     results = p.map(runFunction, arguments)
     p.close()
     return results
@@ -39,18 +39,18 @@ class Algorithm_Evaluator():
 
     def __call__(self, func, seed):
         np.random.seed(int(seed))
-        if self.alg == 'RandomSearch':
-            c = ng.optimizers.RandomSearch(parametrization=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables))
+        if self.alg == 'EMNA':
+            c = ng.optimizers.EMNA()(parametrization=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables))
             c.minimize(func)
-        elif self.alg == 'CMAES_center':
-            c = ModularCMAES(func, d=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables), x0 = np.zeros((func.meta_data.n_variables,1)))
-            c.run()
-        elif self.alg == 'CMAES_sat':
-            c = ModularCMAES(func, d=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables), bound_correction='saturate')
-            c.run()
-        elif self.alg == 'CMAES_sat_center':
-            c = ModularCMAES(func, d=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables), x0 = np.zeros((func.meta_data.n_variables,1)), bound_correction='saturate')
-            c.run()
+        elif self.alg == 'PSO':
+            c = ng.optimizers.PSO(parametrization=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables))
+            c.minimize(func)
+        elif self.alg == 'DE':
+            c = ng.optimizers.DE(parametrization=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables))
+            c.minimize(func)
+        elif self.alg == 'Cobyla':
+            c = ng.optimizers.Cobyla(parametrization=func.meta_data.n_variables, budget=int(10000*func.meta_data.n_variables))
+            c.minimize(func)
         else: 
             print(f"{self.alg} Does not exist! ________")
         
@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     fids = range(1,25)
     
-    algnames = ['RandomSearch']
+    algnames = ['EMNA']
     iids = list(range(1,6)) + list(range(101,111))
     dims = [2]
     tpyes = [ioh.ProblemClass.SBOX, ioh.ProblemClass.BBOB]#in ioh < 0.3.9, problemClass -> problemType
