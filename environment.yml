@@ -1,0 +1,13 @@
+name: sbox-cost
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - tqdm
+  - ipython
+  - numpy
+  - pip
+  - pip:
+    - ioh
+    - modcma
+    - nevergrad
