@@ -6,4 +6,4 @@
 
 set -euo pipefail
 
-/home/nwmdietr/miniconda3/bin/python data_collection_SBOX_ng.py
+/home/nwmdietr/mambaforge/envs/sbox/bin/python data_collection_SBOX_ng.py
